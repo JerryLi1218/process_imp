@@ -35,13 +35,18 @@ class New_visitor_test(unittest.TestCase):
         # He typed "Buy Flower" in the text box (so romantic~)
         inputbox.send_keys('Buy flowers')
 
-        # He pushed the buttum 'Return', and the browser refresh
+        # The application has a text entry field for to-do item
+        # He typed "Give a gift to Lisi" in the text box
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        inputbox.send_keys('Give a gift to Lisi')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
+        # He pushed the buttum 'Return', and the browser refresh
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')
         self.assertIn('1: Buy flowers', [row.text for row in rows])
+        self.assertIn('2: Give a gift to Lisi', [row.text for row in rows])
         
         # He visited the URL and found that his list was still there
         self.fail('Finish the test.')
