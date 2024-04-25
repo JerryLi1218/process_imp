@@ -2,8 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import unittest, time
+from django.test import LiveServerTestCase
 
-class New_visitor_test(unittest.TestCase):
+class New_visitor_test(LiveServerTestCase):
 
     def setUp(self) -> None:
         self.browser = webdriver.Chrome()
@@ -23,7 +24,7 @@ class New_visitor_test(unittest.TestCase):
         some one hear that there is an online application for To-Do list
         he is going to take a look 
         '''
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # He notes that there is a "To-Do" in the home page
         self.assertIn('To-Do', self.browser.title)
@@ -60,6 +61,3 @@ class New_visitor_test(unittest.TestCase):
         self.fail('Finish the test.')
 
         # He left satisfied
-
-if __name__ == '__main__':
-    unittest.main()
