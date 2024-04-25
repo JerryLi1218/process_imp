@@ -76,7 +76,7 @@ class New_visitor_test(LiveServerTestCase):
         self.wait_for_row_in_list_table("1: Buy flowers")
 
         zhangsan_list_url = self.browser.current_url
-        self.assertRegex(zhangsan_list_url, "/list/.+")
+        self.assertRegex(zhangsan_list_url, "/lists/.+")
 
         self.browser.quit()
         self.browser = webdriver.Chrome()
