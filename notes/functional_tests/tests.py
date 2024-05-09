@@ -98,3 +98,46 @@ class New_visitor_test(LiveServerTestCase):
         page_text = self.browser.find_element(By.TAG_NAME, 'body').text
         self.assertNotIn('Buy flowers', page_text)
         self.assertIn('Buy milk', page_text)
+
+class NewVisitorTest(LiveServerTestCase):
+    def setUp(self) -> None:
+        self.browser = webdriver.Chrome()
+        return super().setUp()
+
+    def tearDown(self) -> None:
+        self.browser.quit()
+        return super().tearDown()
+    
+    def wait_for_row_in_list_table(self, row_text):
+        start_time = time.time()
+        while True:
+            try: 
+                table = self.browser.find_element(By.ID, 'id_list_table')
+                rows = table.find_elements(By.TAG_NAME, 'tr')
+                self.assertIn(row_text, [row.text for row in rows])
+                return
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
+
+    def test_layout_and_stying(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
+
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
