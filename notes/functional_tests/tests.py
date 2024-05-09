@@ -92,7 +92,7 @@ class New_visitor_test(LiveServerTestCase):
         self.wait_for_row_in_list_table("1: Buy milk")
 
         wangwu_list_url = self.browser.current_url
-        self.assertRegex(wangwu_list_url, "/list/.+")
+        self.assertRegex(wangwu_list_url, "/lists/.+")
         self.assertNotEqual(wangwu_list_url, zhangsan_list_url)
 
         page_text = self.browser.find_element(By.TAG_NAME, 'body').text
