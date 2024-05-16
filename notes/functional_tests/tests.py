@@ -2,12 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.common.exceptions import WebDriverException
 
 MAX_WAIT = 10
 
-class New_visitor_test(LiveServerTestCase):
+class New_visitor_test(StaticLiveServerTestCase):
 
     def setUp(self) -> None:
         self.browser = webdriver.Chrome()
@@ -99,7 +99,7 @@ class New_visitor_test(LiveServerTestCase):
         self.assertNotIn('Buy flowers', page_text)
         self.assertIn('Buy milk', page_text)
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self) -> None:
         self.browser = webdriver.Chrome()
         return super().setUp()
