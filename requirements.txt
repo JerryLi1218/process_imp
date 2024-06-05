@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+django
+selenium
+=======
 Django
 selenium
 gunicorn
+>>>>>>> 9028a5f390c31df7f4b09ddcef5a6f50cd99d4dc
